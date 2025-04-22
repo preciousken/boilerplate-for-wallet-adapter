@@ -1,6 +1,6 @@
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
-import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import {
     GlowWalletAdapter,
     LedgerWalletAdapter,
@@ -13,6 +13,7 @@ import {
 } from '@solana/wallet-adapter-wallets';
 import { clusterApiUrl } from '@solana/web3.js';
 import React, { FC, ReactNode, useMemo } from 'react';
+import Header from './components/Header';
 
 require('./App.css');
 require('@solana/wallet-adapter-react-ui/styles.css');
@@ -20,7 +21,12 @@ require('@solana/wallet-adapter-react-ui/styles.css');
 const App: FC = () => {
     return (
         <Context>
-            <Content />
+            <div className="App">
+                <Header />
+                <div className="content">
+                    <p>Welcome to the Wallet Connection Demo</p>
+                </div>
+            </div>
         </Context>
     );
 };
@@ -51,21 +57,5 @@ const Context: FC<{ children: ReactNode }> = ({ children }) => {
                 <WalletModalProvider>{children}</WalletModalProvider>
             </WalletProvider>
         </ConnectionProvider>
-    );
-};
-
-const Content: FC = () => {
-    return (
-        <div className="App">
-            <div className="header">
-                <h1>Wallet Connection Demo</h1>
-                <div className="wallet-button">
-                    <WalletMultiButton />
-                </div>
-            </div>
-            <div className="content">
-                <p>Click the "Select Wallet" button above to connect your wallet</p>
-            </div>
-        </div>
     );
 };
